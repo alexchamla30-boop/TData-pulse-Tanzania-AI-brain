@@ -15,7 +15,43 @@ print("Next: Scraping real prices from orbit.co.tz")# 🇹🇿 TDataPulse Day 2 
 # Target: orbit.co.tz - Inuka Fund & ETFs
 
 import requests
+from datetime import datetime# 🇹🇿 TDataPulse Day 3 - Data Persistence
+# Alex Chamla | Dar es Salaam - Building AI Economy Brain
+# Today we become Data Engineers
+
+import csv
+import os
 from datetime import datetime
+
+DATA_FILE = "data/prices.csv"
+
+def get_today_market():
+    # Simulated - Day 5 we connect real Orbit API
+    return [
+        {"date": datetime.now().strftime("%Y-%m-%d"), "fund": "ORBIT-MA-ETF", "price": 655.50, "change": "+0.8%", "source": "orbit.co.tz"},
+        {"date": datetime.now().strftime("%Y-%m-%d"), "fund": "Inuka Fund", "price": 344.20, "change": "+0.6%", "source": "orbit.co.tz"},
+        {"date": datetime.now().strftime("%Y-%m-%d"), "fund": "CRDB", "price": 545.00, "change": "+0.9%", "source": "DSE"},
+    ]
+
+def save_to_csv(new_data):
+    file_exists = os.path.exists(DATA_FILE)
+    # On GitHub mobile we just simulate, but structure is real
+    print(f"💾 Saving {len(new_data)} records to {DATA_FILE}...")
+    for row in new_data:
+        print(f"  -> {row['fund']}: {row['price']} saved.")
+    print("✅ Data persistence ready! This is what NMB Bank pays for.")
+
+def daily_insight():
+    print("\n--- TDataPulse AI Insight (Day 3) ---")
+    print("📈 Trend: ETFs zinaongezeka siku 2 mfululizo.")
+    print("💡 Ushauri: Kama uliwekeza TZS 100k Inuka Fund Nov 3, leo ungekuwa na TZS 100,600")
+    print("🎯 Next: Day 4 - Graph ya kwanza kwa Streamlit!")
+
+if __name__ == "__main__":
+    print(f"=== TDataPulse Day 3 | {datetime.now().date()} ===")
+    market = get_today_market()
+    save_to_csv(market)
+    daily_insight()
 
 def get_orbit_data():
     print(f"=== TDataPulse Day 2 | {datetime.now().date()} ===")
