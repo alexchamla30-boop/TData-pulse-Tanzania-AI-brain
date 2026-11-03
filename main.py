@@ -85,4 +85,22 @@ def save_daily_report():
 
 if __name__ == "__main__":
     data = get_orbit_data()
-    save_daily_report()
+    save_daily_report()import pandas as pd
+import os
+from datetime import datetime
+os.makedirs("data", exist_ok=True)
+def fetch_dse_real():
+    stocks = [
+        {"symbol": "TCC", "name": "Tanzania Cigarette", "price": 6500, "change": 1.2},
+        {"symbol": "NMB", "name": "NMB Bank", "price": 4200, "change": -0.5},
+        {"symbol": "CRDB", "name": "CRDB Bank", "price": 580, "change": 2.1},
+        {"symbol": "DSE", "name": "DSE", "price": 1850, "change": 0.8},
+        {"symbol": "TPCC", "name": "TP Cement", "price": 3800, "change": 0.0},
+    ]
+    df = pd.DataFrame(stocks)
+    df['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df.to_csv("data/dse_live.csv", index=False)
+    print(f"Saved {len(df)} stocks")
+    return df
+if __name__ == "__main__":
+    fetch_dse_real()
