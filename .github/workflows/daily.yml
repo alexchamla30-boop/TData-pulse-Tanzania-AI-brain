@@ -1,0 +1,33 @@
+name: TDataPulse Daily Update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          pip install pandas requests beautifulsoup4 lxml
+          
+      - name: Run Data Fetch
+        run: |
+          python main.py
+          
+      - name: Commit and Push
+        run: |
+          git config --global user.name "TDataPulse-Bot"
+          git config --global user.email "bot@tdata.co.tz"
+          git add data/
+          git commit -m "🤖 Auto update DSE prices $(date)" || echo "No changes"
+          git push
